@@ -12,6 +12,13 @@ export type GroupChannelStatus = "connecting" | "live" | "reconnecting" | "offli
  * entry, so nothing here needs to know the backend's actual host/port.
  */
 function brokerUrl(): string {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  if (apiUrl) {
+    const protocol = apiUrl.startsWith("https") ? "wss" : "ws";
+    return `${protocol}://${apiUrl.replace(/^https?:\/\//, "")}/ws`;
+  }
+
   const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
   return `${protocol}//${window.location.host}/ws`;
 }

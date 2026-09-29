@@ -6,8 +6,10 @@ import { clearAuthStorage, getToken } from "../lib/authStorage";
  * (see vite.config.ts) so we can just use relative "/api/..." paths and
  * avoid hardcoding http://localhost:8080 everywhere.
  */
+const API_URL = import.meta.env.VITE_API_URL || "";
+
 export const api = axios.create({
-  baseURL: "/api",
+  baseURL: `${API_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
