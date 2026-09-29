@@ -3,14 +3,13 @@ spring:
     name: splitwisex-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5433/${DB_NAME:splitwisex}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${DB_NAME:splitwisex}?sslmode=${DB_SSLMODE:disable}
     username: ${DB_USER:splitwisex}
     password: ${DB_PASSWORD:splitwisex}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      # validate, not update/create — Flyway owns the schema
       ddl-auto: validate
     show-sql: true
     properties:
@@ -26,7 +25,6 @@ spring:
 server:
   port: 8080
 
-# Used from Stage 2 onward by the JWT filter
 app:
   jwt:
     secret: ${JWT_SECRET:dev-only-secret-change-me-please-32-bytes-min}
