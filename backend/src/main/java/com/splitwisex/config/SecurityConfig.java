@@ -1,5 +1,6 @@
 package com.splitwisex.config;
 
+import org.springframework.security.config.Customizer;
 import com.splitwisex.security.CustomAccessDeniedHandler;
 import com.splitwisex.security.CustomAuthenticationEntryPoint;
 import com.splitwisex.security.JwtAuthenticationFilter;
@@ -49,6 +50,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            .cors(Customizer.withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                     // Preflight requests never carry the Authorization header,
